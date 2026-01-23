@@ -27,7 +27,17 @@ export interface Product {
   productionCost: number;
   stages: ProductStage[];
   stockQuantity: number;
+  tempStockQuantity: number;
   createdAt: Date;
+}
+
+export interface TempStockItem {
+  id: string;
+  productId: string;
+  productName: string;
+  quantity: number;
+  addedAt: Date;
+  addedBy: string;
 }
 
 export interface Order {
