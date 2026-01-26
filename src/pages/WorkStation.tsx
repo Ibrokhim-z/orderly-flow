@@ -10,14 +10,21 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { mockProducts, mockUsers } from '@/store/mockData';
-import { Product, ProductStage, User } from '@/types';
-import { QrCode, CheckCircle, Package, DollarSign, Layers, ScanLine } from 'lucide-react';
+import { Product, ProductStage } from '@/types';
+import { QrCode, CheckCircle, Package, DollarSign, ScanLine } from 'lucide-react';
+
+interface CompletedStage {
+  stageId: string;
+  stageName: string;
+  payment: number;
+  productName: string;
+}
 
 const WorkStation = () => {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [selectedStage, setSelectedStage] = useState<ProductStage | null>(null);
   const [isScanning, setIsScanning] = useState(false);
-  const [completedStages, setCompletedStages] = useState<string[]>([]);
+  const [completedStages, setCompletedStages] = useState<CompletedStage[]>([]);
   
   const currentEmployee = mockUsers.find((u) => u.role === 'employee');
 
@@ -33,18 +40,24 @@ const WorkStation = () => {
   };
 
   const handleCompleteStage = () => {
-    if (selectedStage && !completedStages.includes(selectedStage.id)) {
-      setCompletedStages([...completedStages, selectedStage.id]);
+    if (selectedStage && selectedProduct && !completedStages.find(s => s.stageId === selectedStage.id)) {
+      setCompletedStages([...completedStages, {
+        stageId: selectedStage.id,
+        stageName: selectedStage.name,
+        payment: selectedStage.payment,
+        productName: selectedProduct.name,
+      }]);
     }
   };
 
   const startScanning = () => {
     setIsScanning(true);
-    // Simulate QR scan
     setTimeout(() => {
       setIsScanning(false);
     }, 2000);
   };
+
+  const totalEarnings = completedStages.reduce((sum, stage) => sum + stage.payment, 0);
 
   return (
     <MainLayout>
@@ -52,14 +65,14 @@ const WorkStation = () => {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight">Work Station</h1>
+            <h1 className="text-3xl font-bold tracking-tight">Рабочая станция</h1>
             <p className="text-muted-foreground mt-1">
-              Scan QR codes to log completed production stages
+              Сканируйте QR-код для регистрации выполненных этапов
             </p>
           </div>
           <div className="text-right">
-            <p className="text-sm text-muted-foreground">Logged in as</p>
-            <p className="font-semibold">{currentEmployee?.name || 'Employee'}</p>
+            <p className="text-sm text-muted-foreground">Вы вошли как</p>
+            <p className="font-semibold">{currentEmployee?.name || 'Сотрудник'}</p>
           </div>
         </div>
 
@@ -69,7 +82,7 @@ const WorkStation = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <QrCode className="w-5 h-5 text-primary" />
-                QR Scanner
+                QR Сканер
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -83,16 +96,16 @@ const WorkStation = () => {
                 {isScanning ? (
                   <div className="text-center space-y-4">
                     <ScanLine className="w-16 h-16 text-primary mx-auto animate-pulse" />
-                    <p className="text-lg font-medium">Scanning...</p>
+                    <p className="text-lg font-medium">Сканирование...</p>
                     <p className="text-sm text-muted-foreground">
-                      Point camera at the QR code
+                      Наведите камеру на QR-код
                     </p>
                   </div>
                 ) : (
                   <div className="text-center space-y-4">
                     <QrCode className="w-16 h-16 text-muted-foreground mx-auto" />
                     <p className="text-muted-foreground">
-                      Click scan to start camera
+                      Нажмите для сканирования
                     </p>
                   </div>
                 )}
@@ -104,11 +117,11 @@ const WorkStation = () => {
                 disabled={isScanning}
               >
                 <ScanLine className="w-5 h-5 mr-2" />
-                {isScanning ? 'Scanning...' : 'Scan QR Code'}
+                {isScanning ? 'Сканирование...' : 'Сканировать QR-код'}
               </Button>
 
               <div className="text-center text-sm text-muted-foreground">
-                <p>Or manually select product and stage below</p>
+                <p>Или выберите товар и этап вручную</p>
               </div>
             </CardContent>
           </Card>
@@ -118,15 +131,15 @@ const WorkStation = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Package className="w-5 h-5 text-primary" />
-                Select Task
+                Выбор задачи
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <label className="text-sm font-medium">Product</label>
+                <label className="text-sm font-medium">Товар</label>
                 <Select onValueChange={handleProductSelect}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select product" />
+                    <SelectValue placeholder="Выберите товар" />
                   </SelectTrigger>
                   <SelectContent>
                     {mockProducts.map((product) => (
@@ -140,10 +153,10 @@ const WorkStation = () => {
 
               {selectedProduct && (
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Production Stage</label>
+                  <label className="text-sm font-medium">Этап производства</label>
                   <Select onValueChange={handleStageSelect}>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select stage" />
+                      <SelectValue placeholder="Выберите этап" />
                     </SelectTrigger>
                     <SelectContent>
                       {selectedProduct.stages.map((stage) => (
@@ -159,24 +172,24 @@ const WorkStation = () => {
               {selectedStage && (
                 <div className="p-4 rounded-lg bg-financial-profit-bg border border-financial-profit/20">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium">You will earn:</span>
+                    <span className="text-sm font-medium">Вы заработаете:</span>
                     <span className="text-2xl font-bold text-financial-profit">
                       ₸{selectedStage.payment.toLocaleString()}
                     </span>
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    For completing "{selectedStage.name}" on {selectedProduct?.name}
+                    За выполнение "{selectedStage.name}" для {selectedProduct?.name}
                   </p>
                 </div>
               )}
 
               <Button
                 className="w-full h-12 gradient-profit border-0"
-                disabled={!selectedStage || completedStages.includes(selectedStage.id)}
+                disabled={!selectedStage || completedStages.find(s => s.stageId === selectedStage.id) !== undefined}
                 onClick={handleCompleteStage}
               >
                 <CheckCircle className="w-5 h-5 mr-2" />
-                Complete Stage
+                Завершить этап
               </Button>
             </CardContent>
           </Card>
@@ -186,41 +199,36 @@ const WorkStation = () => {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <DollarSign className="w-5 h-5 text-financial-profit" />
-                Today's Earnings
+                Заработок за сегодня
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-center py-6">
                 <p className="text-4xl font-bold text-financial-profit">
-                  ₸{(completedStages.length * 500).toLocaleString()}
+                  ₸{totalEarnings.toLocaleString()}
                 </p>
                 <p className="text-muted-foreground mt-2">
-                  {completedStages.length} stages completed
+                  {completedStages.length} этапов выполнено
                 </p>
               </div>
 
               {completedStages.length > 0 && (
                 <div className="space-y-2 mt-4 pt-4 border-t">
-                  <p className="text-sm font-medium text-muted-foreground">Completed today:</p>
-                  {completedStages.map((stageId) => {
-                    const stage = mockProducts
-                      .flatMap((p) => p.stages)
-                      .find((s) => s.id === stageId);
-                    return (
-                      <div
-                        key={stageId}
-                        className="flex items-center justify-between p-2 rounded-lg bg-financial-profit-bg"
-                      >
-                        <div className="flex items-center gap-2">
-                          <CheckCircle className="w-4 h-4 text-financial-profit" />
-                          <span className="text-sm">{stage?.name}</span>
-                        </div>
-                        <span className="text-sm font-semibold text-financial-profit">
-                          +₸{stage?.payment.toLocaleString()}
-                        </span>
+                  <p className="text-sm font-medium text-muted-foreground">Выполнено сегодня:</p>
+                  {completedStages.map((stage) => (
+                    <div
+                      key={stage.stageId}
+                      className="flex items-center justify-between p-2 rounded-lg bg-financial-profit-bg"
+                    >
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="w-4 h-4 text-financial-profit" />
+                        <span className="text-sm">{stage.stageName}</span>
                       </div>
-                    );
-                  })}
+                      <span className="text-sm font-semibold text-financial-profit">
+                        +₸{stage.payment.toLocaleString()}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               )}
             </CardContent>

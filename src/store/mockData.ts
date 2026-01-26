@@ -82,8 +82,13 @@ export const mockUsers: User[] = [
 export const mockStageCompletions: StageCompletion[] = [
   { id: 'sc1', employeeId: 'u3', employeeName: 'Ерболат Касымов', productId: '1', productName: 'Металлический каркасный стол', stageId: 's1', stageName: 'Сборка каркаса', payment: 400, completedAt: new Date('2024-02-03') },
   { id: 'sc2', employeeId: 'u3', employeeName: 'Ерболат Касымов', productId: '1', productName: 'Металлический каркасный стол', stageId: 's2', stageName: 'Обшивка', payment: 900, completedAt: new Date('2024-02-03') },
-  { id: 'sc3', employeeId: 'u4', employeeName: 'Динара Жансеитова', productId: '1', productName: 'Металлический каркасный стол', stageId: 's3', stageName: 'Покраска', payment: 1000, completedAt: new Date('2024-02-04') },
-  { id: 'sc4', employeeId: 'u4', employeeName: 'Динара Жансеитова', productId: '1', productName: 'Металлический каркасный стол', stageId: 's4', stageName: 'Упаковка', payment: 300, completedAt: new Date('2024-02-04') },
+  { id: 'sc3', employeeId: 'u3', employeeName: 'Ерболат Касымов', productId: '2', productName: 'Деревянный стул', stageId: 's5', stageName: 'Распил дерева', payment: 500, completedAt: new Date('2024-02-05') },
+  { id: 'sc4', employeeId: 'u3', employeeName: 'Ерболат Касымов', productId: '2', productName: 'Деревянный стул', stageId: 's6', stageName: 'Сборка', payment: 800, completedAt: new Date('2024-02-05') },
+  { id: 'sc5', employeeId: 'u4', employeeName: 'Динара Жансеитова', productId: '1', productName: 'Металлический каркасный стол', stageId: 's3', stageName: 'Покраска', payment: 1000, completedAt: new Date('2024-02-04') },
+  { id: 'sc6', employeeId: 'u4', employeeName: 'Динара Жансеитова', productId: '1', productName: 'Металлический каркасный стол', stageId: 's4', stageName: 'Упаковка', payment: 300, completedAt: new Date('2024-02-04') },
+  { id: 'sc7', employeeId: 'u4', employeeName: 'Динара Жансеитова', productId: '3', productName: 'Стальной шкаф', stageId: 's9', stageName: 'Резка стали', payment: 1200, completedAt: new Date('2024-02-06') },
+  { id: 'sc8', employeeId: 'u4', employeeName: 'Динара Жансеитова', productId: '3', productName: 'Стальной шкаф', stageId: 's10', stageName: 'Сварка', payment: 2000, completedAt: new Date('2024-02-06') },
+  { id: 'sc9', employeeId: 'u4', employeeName: 'Динара Жансеитова', productId: '2', productName: 'Деревянный стул', stageId: 's7', stageName: 'Полировка', payment: 600, completedAt: new Date('2024-02-07') },
 ];
 
 export const mockCashoutHistory: CashoutHistory[] = [
