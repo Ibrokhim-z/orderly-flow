@@ -15,11 +15,11 @@ const statusColors: Record<OrderStatus, string> = {
 };
 
 const statusLabels: Record<OrderStatus, string> = {
-  waiting: 'Waiting',
-  accepted: 'Accepted',
-  in_progress: 'In Progress',
-  done: 'Done',
-  delivered: 'Delivered',
+  waiting: 'Ожидание',
+  accepted: 'Принят',
+  in_progress: 'В работе',
+  done: 'Готов',
+  delivered: 'Доставлен',
 };
 
 export const OrderStatusChart = ({ orders }: OrderStatusChartProps) => {
@@ -37,7 +37,7 @@ export const OrderStatusChart = ({ orders }: OrderStatusChartProps) => {
   return (
     <Card className="animate-fade-in">
       <CardHeader>
-        <CardTitle className="text-lg font-semibold">Order Status Distribution</CardTitle>
+        <CardTitle className="text-lg font-semibold">Распределение по статусам</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="h-64">

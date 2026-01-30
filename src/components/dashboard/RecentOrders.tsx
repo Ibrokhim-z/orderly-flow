@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Calendar, Package } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
+import { ru } from 'date-fns/locale';
 
 interface RecentOrdersProps {
   orders: Order[];
@@ -16,10 +17,10 @@ export const RecentOrders = ({ orders }: RecentOrdersProps) => {
   return (
     <Card className="animate-fade-in">
       <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle className="text-lg font-semibold">Recent Orders</CardTitle>
+        <CardTitle className="text-lg font-semibold">Последние заказы</CardTitle>
         <Link to="/orders">
           <Button variant="ghost" size="sm" className="text-primary">
-            View All <ArrowRight className="w-4 h-4 ml-1" />
+            Смотреть все <ArrowRight className="w-4 h-4 ml-1" />
           </Button>
         </Link>
       </CardHeader>
@@ -37,9 +38,9 @@ export const RecentOrders = ({ orders }: RecentOrdersProps) => {
                 <div>
                   <p className="font-medium">{order.productName}</p>
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <span>Qty: {order.quantity}</span>
+                    <span>Кол-во: {order.quantity}</span>
                     <span>•</span>
-                    <span>{order.wholesalerName || 'Direct Order'}</span>
+                    <span>{order.wholesalerName || 'Прямой заказ'}</span>
                   </div>
                 </div>
               </div>
@@ -48,7 +49,7 @@ export const RecentOrders = ({ orders }: RecentOrdersProps) => {
                   <p className="font-semibold">₸{order.totalPrice.toLocaleString()}</p>
                   <div className="flex items-center gap-1 text-sm text-muted-foreground">
                     <Calendar className="w-3 h-3" />
-                    <span>{format(new Date(order.deadline), 'MMM dd')}</span>
+                    <span>{format(new Date(order.deadline), 'dd MMM', { locale: ru })}</span>
                   </div>
                 </div>
                 <StatusBadge status={order.status} />

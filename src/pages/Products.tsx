@@ -13,7 +13,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { mockProducts } from '@/store/mockData';
 import { Product, ProductStage } from '@/types';
-import { Plus, Package, Layers, DollarSign, Trash2 } from 'lucide-react';
+import { Plus, Package, Layers, Trash2 } from 'lucide-react';
 
 const Products = () => {
   const [products] = useState<Product[]>(mockProducts);
@@ -37,51 +37,51 @@ const Products = () => {
   return (
     <MainLayout>
       <div className="space-y-6">
-        {/* Header */}
+        {/* Заголовок */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight">Products</h1>
+            <h1 className="text-3xl font-bold tracking-tight">Товары</h1>
             <p className="text-muted-foreground mt-1">
-              Manage products and their production stages
+              Управление товарами и этапами производства
             </p>
           </div>
           <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
             <DialogTrigger asChild>
               <Button className="gradient-primary border-0">
                 <Plus className="w-4 h-4 mr-2" />
-                Add Product
+                Добавить товар
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
               <DialogHeader>
-                <DialogTitle>Add New Product</DialogTitle>
+                <DialogTitle>Добавить новый товар</DialogTitle>
               </DialogHeader>
               <div className="space-y-4 py-4">
                 <div className="space-y-2">
-                  <Label>Product Name</Label>
-                  <Input placeholder="e.g., Metal Frame Table" />
+                  <Label>Название товара</Label>
+                  <Input placeholder="например, Металлический каркас стола" />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label>Selling Price (₸)</Label>
+                    <Label>Цена продажи (₸)</Label>
                     <Input type="number" placeholder="25000" min={0} />
                   </div>
                   <div className="space-y-2">
-                    <Label>Production Cost (₸)</Label>
+                    <Label>Себестоимость (₸)</Label>
                     <Input type="number" placeholder="8000" min={0} />
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label>Initial Stock</Label>
+                  <Label>Начальный остаток</Label>
                   <Input type="number" placeholder="10" min={0} />
                 </div>
                 
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <Label>Production Stages</Label>
+                    <Label>Этапы производства</Label>
                     <Button type="button" variant="outline" size="sm" onClick={addStage}>
                       <Plus className="w-4 h-4 mr-1" />
-                      Add Stage
+                      Добавить этап
                     </Button>
                   </div>
                   
@@ -91,7 +91,7 @@ const Products = () => {
                         {index + 1}.
                       </span>
                       <Input
-                        placeholder="Stage name"
+                        placeholder="Название этапа"
                         className="flex-1"
                         value={stage.name}
                         onChange={(e) => {
@@ -130,14 +130,14 @@ const Products = () => {
                 </div>
                 
                 <Button className="w-full gradient-primary border-0" onClick={() => setIsCreateOpen(false)}>
-                  Create Product
+                  Создать товар
                 </Button>
               </div>
             </DialogContent>
           </Dialog>
         </div>
 
-        {/* Products Grid */}
+        {/* Сетка товаров */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product) => (
             <Card key={product.id} className="animate-fade-in hover:shadow-lg transition-shadow">
@@ -150,7 +150,7 @@ const Products = () => {
                     <div>
                       <CardTitle className="text-lg">{product.name}</CardTitle>
                       <p className="text-sm text-muted-foreground">
-                        Stock: {product.stockQuantity} units
+                        На складе: {product.stockQuantity} шт.
                       </p>
                     </div>
                   </div>
@@ -159,11 +159,11 @@ const Products = () => {
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div className="p-3 rounded-lg bg-financial-sales-bg">
-                    <p className="text-xs text-muted-foreground mb-1">Selling Price</p>
+                    <p className="text-xs text-muted-foreground mb-1">Цена продажи</p>
                     <p className="font-bold text-financial-sales">₸{product.price.toLocaleString()}</p>
                   </div>
                   <div className="p-3 rounded-lg bg-financial-expense-bg">
-                    <p className="text-xs text-muted-foreground mb-1">Production Cost</p>
+                    <p className="text-xs text-muted-foreground mb-1">Себестоимость</p>
                     <p className="font-bold text-financial-expense">₸{product.productionCost.toLocaleString()}</p>
                   </div>
                 </div>
@@ -171,7 +171,7 @@ const Products = () => {
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 text-sm font-medium">
                     <Layers className="w-4 h-4 text-muted-foreground" />
-                    <span>Production Stages ({product.stages.length})</span>
+                    <span>Этапы производства ({product.stages.length})</span>
                     <span className="ml-auto text-primary font-bold">
                       ₸{calculateTotalStagePayment(product.stages).toLocaleString()}
                     </span>
@@ -192,7 +192,7 @@ const Products = () => {
                 </div>
                 
                 <Button variant="outline" className="w-full">
-                  Edit Product
+                  Редактировать товар
                 </Button>
               </CardContent>
             </Card>

@@ -23,6 +23,15 @@ import { mockOrders, mockProducts } from '@/store/mockData';
 import { Order, OrderStatus } from '@/types';
 import { Plus, Calendar, Package, User, Filter, Search } from 'lucide-react';
 import { format } from 'date-fns';
+import { ru } from 'date-fns/locale';
+
+const statusLabels: Record<OrderStatus, string> = {
+  waiting: 'Ожидание',
+  accepted: 'Принят',
+  in_progress: 'В работе',
+  done: 'Готов',
+  delivered: 'Доставлен',
+};
 
 const Orders = () => {
   const [orders, setOrders] = useState<Order[]>(mockOrders);
@@ -55,31 +64,31 @@ const Orders = () => {
   return (
     <MainLayout>
       <div className="space-y-6">
-        {/* Header */}
+        {/* Заголовок */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight">Orders</h1>
+            <h1 className="text-3xl font-bold tracking-tight">Заказы</h1>
             <p className="text-muted-foreground mt-1">
-              Manage and track all production orders
+              Управление и отслеживание всех заказов
             </p>
           </div>
           <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
             <DialogTrigger asChild>
               <Button className="gradient-primary border-0">
                 <Plus className="w-4 h-4 mr-2" />
-                Create Order
+                Создать заказ
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-md">
               <DialogHeader>
-                <DialogTitle>Create New Order</DialogTitle>
+                <DialogTitle>Создать новый заказ</DialogTitle>
               </DialogHeader>
               <div className="space-y-4 py-4">
                 <div className="space-y-2">
-                  <Label>Product</Label>
+                  <Label>Товар</Label>
                   <Select>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select product" />
+                      <SelectValue placeholder="Выберите товар" />
                     </SelectTrigger>
                     <SelectContent>
                       {mockProducts.map((product) => (
@@ -91,29 +100,29 @@ const Orders = () => {
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label>Quantity</Label>
-                  <Input type="number" placeholder="Enter quantity" min={1} />
+                  <Label>Количество</Label>
+                  <Input type="number" placeholder="Введите количество" min={1} />
                 </div>
                 <div className="space-y-2">
-                  <Label>Deadline</Label>
+                  <Label>Дедлайн</Label>
                   <Input type="date" />
                 </div>
                 <Button className="w-full gradient-primary border-0" onClick={() => setIsCreateOpen(false)}>
-                  Create Order
+                  Создать заказ
                 </Button>
               </div>
             </DialogContent>
           </Dialog>
         </div>
 
-        {/* Filters */}
+        {/* Фильтры */}
         <Card>
           <CardContent className="py-4">
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2 flex-1 max-w-sm">
                 <Search className="w-4 h-4 text-muted-foreground" />
                 <Input
-                  placeholder="Search orders..."
+                  placeholder="Поиск заказов..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="border-0 bg-transparent focus-visible:ring-0"
@@ -123,15 +132,15 @@ const Orders = () => {
                 <Filter className="w-4 h-4 text-muted-foreground" />
                 <Select value={filterStatus} onValueChange={(v) => setFilterStatus(v as OrderStatus | 'all')}>
                   <SelectTrigger className="w-40">
-                    <SelectValue placeholder="Filter by status" />
+                    <SelectValue placeholder="Фильтр по статусу" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All Statuses</SelectItem>
-                    <SelectItem value="waiting">Waiting</SelectItem>
-                    <SelectItem value="accepted">Accepted</SelectItem>
-                    <SelectItem value="in_progress">In Progress</SelectItem>
-                    <SelectItem value="done">Done</SelectItem>
-                    <SelectItem value="delivered">Delivered</SelectItem>
+                    <SelectItem value="all">Все статусы</SelectItem>
+                    <SelectItem value="waiting">Ожидание</SelectItem>
+                    <SelectItem value="accepted">Принят</SelectItem>
+                    <SelectItem value="in_progress">В работе</SelectItem>
+                    <SelectItem value="done">Готов</SelectItem>
+                    <SelectItem value="delivered">Доставлен</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -139,22 +148,22 @@ const Orders = () => {
           </CardContent>
         </Card>
 
-        {/* Orders Table */}
+        {/* Таблица заказов */}
         <Card>
           <CardHeader>
-            <CardTitle>All Orders ({filteredOrders.length})</CardTitle>
+            <CardTitle>Все заказы ({filteredOrders.length})</CardTitle>
           </CardHeader>
           <CardContent>
             <table className="data-table">
               <thead>
                 <tr>
-                  <th>Product</th>
-                  <th>Quantity</th>
-                  <th>Total</th>
-                  <th>Deadline</th>
-                  <th>Wholesaler</th>
-                  <th>Status</th>
-                  <th>Actions</th>
+                  <th>Товар</th>
+                  <th>Кол-во</th>
+                  <th>Сумма</th>
+                  <th>Дедлайн</th>
+                  <th>Оптовик</th>
+                  <th>Статус</th>
+                  <th>Действия</th>
                 </tr>
               </thead>
               <tbody>
@@ -175,7 +184,7 @@ const Orders = () => {
                       <td>
                         <div className="flex items-center gap-2 text-muted-foreground">
                           <Calendar className="w-4 h-4" />
-                          {format(new Date(order.deadline), 'MMM dd, yyyy')}
+                          {format(new Date(order.deadline), 'dd MMM yyyy', { locale: ru })}
                         </div>
                       </td>
                       <td>
@@ -198,7 +207,7 @@ const Orders = () => {
                             size="sm"
                             onClick={() => updateOrderStatus(order.id, nextStatus)}
                           >
-                            Move to {nextStatus.replace('_', ' ')}
+                            → {statusLabels[nextStatus]}
                           </Button>
                         )}
                       </td>

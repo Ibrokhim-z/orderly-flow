@@ -10,36 +10,36 @@ export const FinancialOverview = ({ data }: FinancialOverviewProps) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       <MetricCard
-        title="Total Sales"
+        title="Общие продажи"
         value={`₸${data.totalSales.toLocaleString()}`}
-        subtitle="Completed orders only"
+        subtitle="Только выполненные заказы"
         icon={<DollarSign className="w-5 h-5" />}
         variant="sales"
         trend="up"
         trendValue="+12.5%"
       />
       <MetricCard
-        title="Total Expenses"
+        title="Общие расходы"
         value={`₸${data.totalExpenses.toLocaleString()}`}
-        subtitle="All expense types"
+        subtitle="Все типы расходов"
         icon={<TrendingDown className="w-5 h-5" />}
         variant="expense"
         trend="down"
         trendValue="-3.2%"
       />
       <MetricCard
-        title="Cash"
+        title="Касса"
         value={`₸${data.cash.toLocaleString()}`}
-        subtitle="Sales - Expenses"
+        subtitle="Продажи - Расходы"
         icon={<Wallet className="w-5 h-5" />}
         variant="cash"
         trend="up"
         trendValue="+8.1%"
       />
       <MetricCard
-        title="Net Profit"
+        title="Чистая прибыль"
         value={`₸${data.netProfit.toLocaleString()}`}
-        subtitle="After production costs"
+        subtitle="После себестоимости"
         icon={<TrendingUp className="w-5 h-5" />}
         variant="profit"
         trend="up"

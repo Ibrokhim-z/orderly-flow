@@ -24,10 +24,10 @@ import { User, UserRole } from '@/types';
 import { Plus, Users, Shield, DollarSign, Briefcase } from 'lucide-react';
 
 const roleConfig: Record<UserRole, { label: string; color: string }> = {
-  admin: { label: 'Admin', color: 'bg-purple-500/10 text-purple-500' },
-  manager: { label: 'Manager', color: 'bg-blue-500/10 text-blue-500' },
-  employee: { label: 'Employee', color: 'bg-green-500/10 text-green-500' },
-  wholesaler: { label: 'Wholesaler', color: 'bg-orange-500/10 text-orange-500' },
+  admin: { label: 'Администратор', color: 'bg-purple-500/10 text-purple-500' },
+  manager: { label: 'Менеджер', color: 'bg-blue-500/10 text-blue-500' },
+  employee: { label: 'Сотрудник', color: 'bg-green-500/10 text-green-500' },
+  wholesaler: { label: 'Оптовик', color: 'bg-orange-500/10 text-orange-500' },
 };
 
 const Employees = () => {
@@ -50,62 +50,62 @@ const Employees = () => {
   return (
     <MainLayout>
       <div className="space-y-6">
-        {/* Header */}
+        {/* Заголовок */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight">Team</h1>
+            <h1 className="text-3xl font-bold tracking-tight">Команда</h1>
             <p className="text-muted-foreground mt-1">
-              Manage employees, staff, and wholesalers
+              Управление сотрудниками, персоналом и оптовиками
             </p>
           </div>
           <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
             <DialogTrigger asChild>
               <Button className="gradient-primary border-0">
                 <Plus className="w-4 h-4 mr-2" />
-                Add Member
+                Добавить участника
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-md">
               <DialogHeader>
-                <DialogTitle>Add Team Member</DialogTitle>
+                <DialogTitle>Добавить участника команды</DialogTitle>
               </DialogHeader>
               <div className="space-y-4 py-4">
                 <div className="space-y-2">
-                  <Label>Full Name</Label>
-                  <Input placeholder="Enter full name" />
+                  <Label>ФИО</Label>
+                  <Input placeholder="Введите полное имя" />
                 </div>
                 <div className="space-y-2">
-                  <Label>Email</Label>
+                  <Label>Электронная почта</Label>
                   <Input type="email" placeholder="email@example.com" />
                 </div>
                 <div className="space-y-2">
-                  <Label>Role</Label>
+                  <Label>Роль</Label>
                   <Select>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select role" />
+                      <SelectValue placeholder="Выберите роль" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="employee">Employee</SelectItem>
-                      <SelectItem value="manager">Manager</SelectItem>
-                      <SelectItem value="admin">Admin</SelectItem>
-                      <SelectItem value="wholesaler">Wholesaler</SelectItem>
+                      <SelectItem value="employee">Сотрудник</SelectItem>
+                      <SelectItem value="manager">Менеджер</SelectItem>
+                      <SelectItem value="admin">Администратор</SelectItem>
+                      <SelectItem value="wholesaler">Оптовик</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <Button className="w-full gradient-primary border-0" onClick={() => setIsCreateOpen(false)}>
-                  Add Member
+                  Добавить участника
                 </Button>
               </div>
             </DialogContent>
           </Dialog>
         </div>
 
-        {/* Employees Section */}
+        {/* Секция сотрудников */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Users className="w-5 h-5 text-primary" />
-              Employees ({employees.length})
+              Сотрудники ({employees.length})
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -128,7 +128,7 @@ const Employees = () => {
                     <div className="p-2 rounded-lg bg-financial-profit-bg">
                       <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
                         <DollarSign className="w-3 h-3" />
-                        Earnings
+                        Заработок
                       </div>
                       <p className="font-bold text-financial-profit">
                         ₸{getEmployeeEarnings(employee.id).toLocaleString()}
@@ -137,7 +137,7 @@ const Employees = () => {
                     <div className="p-2 rounded-lg bg-primary/10">
                       <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
                         <Briefcase className="w-3 h-3" />
-                        Tasks
+                        Задачи
                       </div>
                       <p className="font-bold text-primary">
                         {getEmployeeTasksCount(employee.id)}
@@ -150,12 +150,12 @@ const Employees = () => {
           </CardContent>
         </Card>
 
-        {/* Staff Section */}
+        {/* Секция персонала */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Shield className="w-5 h-5 text-primary" />
-              Staff ({staff.length})
+              Персонал ({staff.length})
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -180,12 +180,12 @@ const Employees = () => {
           </CardContent>
         </Card>
 
-        {/* Wholesalers Section */}
+        {/* Секция оптовиков */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Briefcase className="w-5 h-5 text-primary" />
-              Wholesalers ({wholesalers.length})
+              Оптовики ({wholesalers.length})
             </CardTitle>
           </CardHeader>
           <CardContent>
