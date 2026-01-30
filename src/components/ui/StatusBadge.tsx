@@ -7,11 +7,11 @@ interface StatusBadgeProps {
 }
 
 const statusConfig: Record<OrderStatus, { label: string; className: string }> = {
-  waiting: { label: 'Waiting', className: 'status-waiting' },
-  accepted: { label: 'Accepted', className: 'status-accepted' },
-  in_progress: { label: 'In Progress', className: 'status-in-progress' },
-  done: { label: 'Done', className: 'status-done' },
-  delivered: { label: 'Delivered', className: 'status-delivered' },
+  waiting: { label: 'Ожидание', className: 'status-waiting' },
+  accepted: { label: 'Принят', className: 'status-accepted' },
+  in_progress: { label: 'В работе', className: 'status-in-progress' },
+  done: { label: 'Готов', className: 'status-done' },
+  delivered: { label: 'Доставлен', className: 'status-delivered' },
 };
 
 export const StatusBadge = ({ status, className }: StatusBadgeProps) => {

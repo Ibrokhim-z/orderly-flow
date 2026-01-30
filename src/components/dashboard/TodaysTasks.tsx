@@ -3,6 +3,7 @@ import { Order } from '@/types';
 import { StatusBadge } from '@/components/ui/StatusBadge';
 import { Clock, AlertCircle } from 'lucide-react';
 import { format, isToday, isBefore } from 'date-fns';
+import { ru } from 'date-fns/locale';
 
 interface TodaysTasksProps {
   orders: Order[];
@@ -22,12 +23,12 @@ export const TodaysTasks = ({ orders }: TodaysTasksProps) => {
       <CardHeader>
         <CardTitle className="text-lg font-semibold flex items-center gap-2">
           <Clock className="w-5 h-5 text-primary" />
-          Today's Active Orders
+          Активные заказы на сегодня
         </CardTitle>
       </CardHeader>
       <CardContent>
         {activeOrders.length === 0 ? (
-          <p className="text-muted-foreground text-center py-8">No active orders</p>
+          <p className="text-muted-foreground text-center py-8">Нет активных заказов</p>
         ) : (
           <div className="space-y-3">
             {activeOrders.map((order) => {
@@ -44,7 +45,7 @@ export const TodaysTasks = ({ orders }: TodaysTasksProps) => {
                     <div>
                       <p className="font-medium">{order.productName}</p>
                       <p className="text-sm text-muted-foreground">
-                        Qty: {order.quantity} • Due: {format(new Date(order.deadline), 'MMM dd')}
+                        Кол-во: {order.quantity} • Срок: {format(new Date(order.deadline), 'dd MMM', { locale: ru })}
                       </p>
                     </div>
                   </div>

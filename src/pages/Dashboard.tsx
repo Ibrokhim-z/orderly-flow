@@ -13,34 +13,34 @@ const Dashboard = () => {
   return (
     <MainLayout>
       <div className="space-y-8">
-        {/* Header */}
+        {/* Заголовок */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+            <h1 className="text-3xl font-bold tracking-tight">Панель управления</h1>
             <p className="text-muted-foreground mt-1">
-              Welcome back! Here's what's happening in your workshop.
+              Добро пожаловать! Вот что происходит в вашем цехе.
             </p>
           </div>
           <div className="flex items-center gap-3">
             <Button variant="outline" size="sm">
               <Download className="w-4 h-4 mr-2" />
-              Export Report
+              Экспорт отчёта
             </Button>
             <Button variant="outline" size="sm">
               <RefreshCcw className="w-4 h-4 mr-2" />
-              Refresh
+              Обновить
             </Button>
             <Button className="gradient-primary border-0">
               <Plus className="w-4 h-4 mr-2" />
-              New Order
+              Новый заказ
             </Button>
           </div>
         </div>
 
-        {/* Financial Overview */}
+        {/* Финансовый обзор */}
         <FinancialOverview data={financials} />
 
-        {/* Main Content Grid */}
+        {/* Основная сетка контента */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
             <RecentOrders orders={mockOrders} />
@@ -50,7 +50,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Today's Tasks */}
+        {/* Задачи на сегодня */}
         <TodaysTasks orders={mockOrders} />
       </div>
     </MainLayout>
