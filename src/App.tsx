@@ -10,6 +10,7 @@ import Employees from "./pages/Employees";
 import Expenses from "./pages/Expenses";
 import Warehouse from "./pages/Warehouse";
 import WorkStation from "./pages/WorkStation";
+import Logistics from "./pages/Logistics";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/expenses" element={<Expenses />} />
           <Route path="/warehouse" element={<Warehouse />} />
           <Route path="/workstation" element={<WorkStation />} />
+          <Route path="/logistics" element={<Logistics />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
