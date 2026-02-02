@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, ShoppingCart, Package, Users, Wallet, Warehouse, QrCode, Settings, LogOut, Factory, Truck } from 'lucide-react';
+import { LayoutDashboard, ShoppingCart, Package, Users, Wallet, Warehouse, QrCode, Settings, LogOut, Factory, Briefcase } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navItems = [
@@ -7,7 +7,7 @@ const navItems = [
   { icon: ShoppingCart, label: 'Заказы', href: '/orders' },
   { icon: Package, label: 'Товары', href: '/products' },
   { icon: Warehouse, label: 'Склад', href: '/warehouse' },
-  { icon: Truck, label: 'Логистика', href: '/logistics' },
+  { icon: Briefcase, label: 'Оптовики', href: '/wholesalers' },
   { icon: Users, label: 'Сотрудники', href: '/employees' },
   { icon: Wallet, label: 'Расходы', href: '/expenses' },
   { icon: QrCode, label: 'Рабочая станция', href: '/workstation' },
