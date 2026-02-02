@@ -71,12 +71,12 @@ export const mockExpenses: Expense[] = [
 ];
 
 export const mockUsers: User[] = [
-  { id: 'u1', name: 'Арман Султанов', email: 'arman@workshop.kz', role: 'admin', salary: 0, createdAt: new Date('2024-01-01') },
-  { id: 'u2', name: 'Аида Нурсултанова', email: 'aida@workshop.kz', role: 'manager', salary: 0, createdAt: new Date('2024-01-05') },
-  { id: 'u3', name: 'Ерболат Касымов', email: 'yerbol@workshop.kz', role: 'employee', salary: 45600, createdAt: new Date('2024-01-10') },
-  { id: 'u4', name: 'Динара Жансеитова', email: 'dinara@workshop.kz', role: 'employee', salary: 38200, createdAt: new Date('2024-01-12') },
-  { id: 'u5', name: 'Астана Мебель', email: 'contact@astanamebel.kz', role: 'wholesaler', salary: 0, createdAt: new Date('2024-01-20') },
-  { id: 'u6', name: 'Алматы Трейд', email: 'orders@almatytrade.kz', role: 'wholesaler', salary: 0, createdAt: new Date('2024-01-25') },
+  { id: 'u1', name: 'Арман Султанов', email: 'arman@workshop.kz', phone: '+7 701 111 2233', role: 'admin', salary: 0, createdAt: new Date('2024-01-01') },
+  { id: 'u2', name: 'Аида Нурсултанова', email: 'aida@workshop.kz', phone: '+7 702 222 3344', role: 'manager', salary: 0, createdAt: new Date('2024-01-05') },
+  { id: 'u3', name: 'Ерболат Касымов', email: 'yerbol@workshop.kz', phone: '+7 703 333 4455', role: 'employee', salary: 45600, createdAt: new Date('2024-01-10') },
+  { id: 'u4', name: 'Динара Жансеитова', email: 'dinara@workshop.kz', phone: '+7 704 444 5566', role: 'employee', salary: 38200, createdAt: new Date('2024-01-12') },
+  { id: 'u5', name: 'Астана Мебель', email: 'contact@astanamebel.kz', phone: '+7 7172 55 66 77', role: 'wholesaler', salary: 0, createdAt: new Date('2024-01-20') },
+  { id: 'u6', name: 'Алматы Трейд', email: 'orders@almatytrade.kz', phone: '+7 727 88 99 00', role: 'wholesaler', salary: 0, createdAt: new Date('2024-01-25') },
 ];
 
 export const mockStageCompletions: StageCompletion[] = [

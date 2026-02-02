@@ -11,6 +11,16 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -38,6 +48,12 @@ const Orders = () => {
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [filterStatus, setFilterStatus] = useState<OrderStatus | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [confirmDialog, setConfirmDialog] = useState<{
+    open: boolean;
+    orderId: string;
+    newStatus: OrderStatus;
+    productName: string;
+  } | null>(null);
 
   const filteredOrders = orders.filter((order) => {
     const matchesStatus = filterStatus === 'all' || order.status === filterStatus;
@@ -49,6 +65,17 @@ const Orders = () => {
     setOrders((prev) =>
       prev.map((o) => (o.id === orderId ? { ...o, status: newStatus } : o))
     );
+  };
+
+  const handleStatusChange = (orderId: string, newStatus: OrderStatus, productName: string) => {
+    setConfirmDialog({ open: true, orderId, newStatus, productName });
+  };
+
+  const confirmStatusChange = () => {
+    if (confirmDialog) {
+      updateOrderStatus(confirmDialog.orderId, confirmDialog.newStatus);
+      setConfirmDialog(null);
+    }
   };
 
   const statusOrder: OrderStatus[] = ['waiting', 'accepted', 'in_progress', 'done', 'delivered'];
@@ -205,7 +232,7 @@ const Orders = () => {
                           <Button
                             variant="outline"
                             size="sm"
-                            onClick={() => updateOrderStatus(order.id, nextStatus)}
+                            onClick={() => handleStatusChange(order.id, nextStatus, order.productName)}
                           >
                             → {statusLabels[nextStatus]}
                           </Button>
@@ -218,6 +245,22 @@ const Orders = () => {
             </table>
           </CardContent>
         </Card>
+
+        {/* Диалог подтверждения */}
+        <AlertDialog open={confirmDialog?.open} onOpenChange={(open) => !open && setConfirmDialog(null)}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Подтверждение изменения статуса</AlertDialogTitle>
+              <AlertDialogDescription>
+                Вы уверены, что хотите изменить статус заказа "{confirmDialog?.productName}" на "{confirmDialog ? statusLabels[confirmDialog.newStatus] : ''}"?
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Отмена</AlertDialogCancel>
+              <AlertDialogAction onClick={confirmStatusChange}>Подтвердить</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </MainLayout>
   );
