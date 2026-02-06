@@ -141,22 +141,6 @@ const Expenses = () => {
                       </SelectContent>
                     </Select>
                   </div>
-                  <div className="space-y-2">
-                    <Label>Категория</Label>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Выберите категорию" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="Materials">Материалы</SelectItem>
-                        <SelectItem value="Utilities">Коммунальные</SelectItem>
-                        <SelectItem value="Transport">Транспорт</SelectItem>
-                        <SelectItem value="Food">Питание</SelectItem>
-                        <SelectItem value="Salary">Зарплата</SelectItem>
-                        <SelectItem value="Other">Прочее</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
                   <Button className="w-full gradient-primary border-0" onClick={() => setIsCreateOpen(false)}>
                     Добавить расход
                   </Button>
@@ -229,7 +213,6 @@ const Expenses = () => {
                   <th>Описание</th>
                   <th>Сумма</th>
                   <th>Тип</th>
-                  <th>Категория</th>
                   <th>Дата</th>
                 </tr>
               </thead>
@@ -252,7 +235,6 @@ const Expenses = () => {
                         {expenseTypeConfig[expense.type].label}
                       </Badge>
                     </td>
-                    <td>{categoryLabels[expense.category] || expense.category}</td>
                     <td className="text-muted-foreground">
                       {format(new Date(expense.createdAt), 'dd MMM yyyy', { locale: ru })}
                     </td>
